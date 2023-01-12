@@ -1,11 +1,15 @@
+import { Path } from "@/constants/path";
 import Index from "@/pages/Index";
 import { useRoutes } from "react-router-dom";
 
-export const layout = () => {
-    return useRoutes([
+export const Routes = () =>
+    useRoutes([
         {
-            path: "/",
+            path: Path.Root,
+            element: <Index />,
+        },
+        {
+            path: Path.Index,
             element: <Index />,
         },
     ]);
-};

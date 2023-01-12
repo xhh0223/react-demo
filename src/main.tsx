@@ -1,11 +1,6 @@
-import { render } from "preact";
-import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 import { App } from "./app";
 import "./index.css";
 
-render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
-    document.getElementById("app") as HTMLElement
-);
+const root = createRoot(document.getElementById("app") as HTMLElement);
+root.render(<App />);

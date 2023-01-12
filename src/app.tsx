@@ -1,7 +1,11 @@
-import { Routes } from "react-router-dom";
-
+import { HashRouter as Router, Route } from "react-router-dom";
 import "./app.css";
+import { Routes } from "./routes";
 
 export function App() {
-    return <Routes></Routes>;
+    return (
+        <Router>
+            <Routes />
+        </Router>
+    );
 }
