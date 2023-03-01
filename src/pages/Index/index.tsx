@@ -1,35 +1,31 @@
-import { Button, Form } from "antd";
-import BaseForm, { FormValues, FormName, FormId } from "./BaseForm";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-const index = () => {
-    const [baseForm] = Form.useForm<FormValues>();
-    return (
-        <div>
-            <BaseForm
-                formProps={{
-                    id: FormId,
-                    form: baseForm,
-                    onFinish: (v) => {
-                        console.log(v);
-                    },
-                }}
-                formItemListProps={[
-                    {
-                        id: FormName.name,
-                        label: "姓名12322",
-                        rules: [],
-                    },
-                ]}
-            />
-            <Button
-                onClick={() => {
-                    baseForm.submit();
-                }}
-            >
-                提交
-            </Button>
-        </div>
-    );
-};
 
+
+let obj: any[] = []
+let key =-1
+let indexStack = []
+
+function memo(val: number){
+  indexStack.push(key++)
+  obj.push(()=>{
+    let init = val
+    obj[key]
+    function setInit(v:any){
+      init =v 
+    }
+  })
+}
+memo(1)
+memo(2)
+
+const context=(v:any)=>{
+  
+}
+
+export const index = ()=>{
+  memo(1)
+  memo(2)
+  return <div></div>
+}
 export default index;
