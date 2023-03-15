@@ -23,7 +23,7 @@ Test.useInstance = () => {
     }
     return ins.current;
 };
-Form.useForm
+Form.useForm;
 const Demo3 = () => {
     const ins = Test.useInstance();
     const ins2 = Test.useInstance();

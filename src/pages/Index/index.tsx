@@ -1,12 +1,5 @@
 import { Image, ImageProps } from "antd";
-import {
-    forwardRef,
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import { useState } from "react";
 
 const test = () => {
     const [show, setShow] = useState(false);
