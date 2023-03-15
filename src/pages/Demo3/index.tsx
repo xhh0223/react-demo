@@ -1,53 +1,76 @@
 import { Form } from "antd";
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-
-interface Instance extends React.FunctionComponent<{ instance: any }> {
-    useInstance: any;
+import {
+    Dispatch,
+    SetStateAction,
+    useCallback,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
+interface ComponentState {
+    visible: boolean;
 }
-const Test: Instance = ({ instance }) => {
-    const [state, setState] = useState("");
-    if (instance) {
-        instance.setState = setState;
-    }
-    return <div>{state}</div>;
-};
 
-Test.useInstance = () => {
-    const ins = useRef<any>();
-    if (!ins.current) {
-        ins.current = {
-            set(v: string) {
-                this.setState(v);
-            },
-        };
+class Store {
+    private dispatch!: Dispatch<SetStateAction<ComponentState>>;
+    private state!: ComponentState;
+    constructor([state, setState]: [
+        ComponentState,
+        Dispatch<SetStateAction<ComponentState>>
+    ]) {
+        this.dispatch = setState;
+        this.state = state;
     }
-    return ins.current;
-};
-Form.useForm;
+    getState() {
+        return this.state;
+    }
+    show() {
+        this.dispatch({
+            visible: true,
+        });
+    }
+    hide() {
+        this.dispatch({
+            visible: false,
+        });
+    }
+}
+interface ComponentProps {
+    instance: Store;
+}
+abstract class Component {
+    static useInstance() {
+        const ins = useRef<Store>();
+        const [state, setState] = useState<ComponentState>({
+            visible: false,
+        });
+        const value = useMemo(() => {
+            if (!ins.current) {
+                ins.current = new Store([state, setState]);
+            }
+            return ins.current;
+        }, [ins.current]);
+        return value;
+    }
+    static render: React.FC<ComponentProps> = ({ instance }) => {
+        const state = instance.getState();
+        return <div>{state.visible && "展示"} </div>;
+    };
+}
+Form;
 const Demo3 = () => {
-    const ins = Test.useInstance();
-    const ins2 = Test.useInstance();
-
+    const instance = Component.useInstance();
     return (
-        <>
-            <Test instance={ins} />
-            <Test instance={ins2} />
+        <div>
+            <Component.render instance={instance} />
             <div
                 onClick={() => {
-                    ins.set(new Date().toString());
+                    instance.show();
                 }}
             >
-                update1
+                change
             </div>
-            <div
-                onClick={() => {
-                    ins2.set(new Date().toString());
-                }}
-            >
-                update2
-            </div>
-        </>
+        </div>
     );
 };
-
 export default Demo3;
