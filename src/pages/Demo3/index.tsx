@@ -1,23 +1,13 @@
-import { Form } from "antd";
-import {
-    Dispatch,
-    SetStateAction,
-    useCallback,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import { Dispatch, SetStateAction, useMemo, useRef, useState } from "react";
 interface ComponentState {
     visible: boolean;
 }
 
-class Store {
+class Action {
     private dispatch!: Dispatch<SetStateAction<ComponentState>>;
     private state!: ComponentState;
-    constructor([state, setState]: [
-        ComponentState,
-        Dispatch<SetStateAction<ComponentState>>
-    ]) {
+    init(props: [ComponentState, Dispatch<SetStateAction<ComponentState>>]) {
+        const [state, setState] = props;
         this.dispatch = setState;
         this.state = state;
     }
@@ -36,39 +26,47 @@ class Store {
     }
 }
 interface ComponentProps {
-    instance: Store;
+    instance: Action;
 }
 abstract class Component {
     static useInstance() {
-        const ins = useRef<Store>();
-        const [state, setState] = useState<ComponentState>({
-            visible: false,
-        });
+        const ins = useRef<Action>();
         const value = useMemo(() => {
             if (!ins.current) {
-                ins.current = new Store([state, setState]);
+                ins.current = new Action();
             }
             return ins.current;
         }, [ins.current]);
         return value;
     }
     static render: React.FC<ComponentProps> = ({ instance }) => {
-        const state = instance.getState();
+        const [state, setState] = useState<ComponentState>({ visible: false });
+        instance.init([state, setState]);
         return <div>{state.visible && "展示"} </div>;
     };
 }
-Form;
+
 const Demo3 = () => {
-    const instance = Component.useInstance();
+    const instance1 = Component.useInstance();
+    const instance2 = Component.useInstance();
+
     return (
         <div>
-            <Component.render instance={instance} />
+            <Component.render instance={instance1} />
             <div
                 onClick={() => {
-                    instance.show();
+                    instance1.show();
                 }}
             >
-                change
+                change1
+            </div>
+            <Component.render instance={instance2} />
+            <div
+                onClick={() => {
+                    instance2.show();
+                }}
+            >
+                change2
             </div>
         </div>
     );
