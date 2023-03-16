@@ -1,35 +1,82 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 
-const Display = (props: any) => {
-    return (
-        <>
-            <div>{props.children}</div>
-        </>
-    );
-};
+export enum ActionType {
+    ChangeName,
+    ChangeAge,
+}
+interface ChangeNameAction {
+    type: ActionType.ChangeName;
+    payload: {
+        name: string;
+    };
+}
+interface ChangeAgeAction {
+    type: ActionType.ChangeAge;
+    payload: {
+        age: string;
+    };
+}
+
+function reducer(
+    state: { name: string; age: string },
+    action: ChangeAgeAction | ChangeNameAction
+) {
+    switch (action.type) {
+        case ActionType.ChangeName: {
+            return {
+                ...state,
+                ...action.payload,
+            };
+            break;
+        }
+        case ActionType.ChangeAge: {
+            return {
+                ...state,
+                ...action.payload,
+            };
+            break;
+        }
+    }
+}
 
 export const Demo4 = () => {
-    const [state, setState] = useState({ text1: "0", text2: "0" });
-    const text = {
-        node1: {
-            text: { text: state.text1 },
-        },
-        node2: {
-            text: { text: state.text2 },
-        },
-    };
+    const [state, dispatch] = useReducer(reducer, { name: "xhh", age: "18" });
     return (
         <>
-            <Display>{JSON.stringify(text)}</Display>
+            {state.name}-{state.age}
             <div
                 onClick={() => {
-                    setState({
-                        text1: `1${Math.random()}`,
-                        text2: `2${Math.random()}`,
+                    dispatch({
+                        type: ActionType.ChangeName,
+                        payload: { name: "xhh0409" },
                     });
                 }}
             >
-                change
+                changeName
+            </div>
+            <div
+                onClick={() => {
+                    dispatch({
+                        type: ActionType.ChangeAge,
+                        payload: { age: "20" },
+                    });
+                }}
+            >
+                changeAge
+            </div>
+            <div
+                onClick={() => {
+                    dispatch({
+                        type: ActionType.ChangeAge,
+                        payload: { age: "20" },
+                    });
+                    dispatch({
+                        type: ActionType.ChangeName,
+                        payload: { name: "xhh0409" },
+                    });
+                }}
+            >
+                changeName_changeAge
             </div>
         </>
     );
