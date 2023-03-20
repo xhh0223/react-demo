@@ -41,33 +41,35 @@ function reducer(
 }
 
 export const Demo4 = () => {
-    const [options, setOptions] = useState<any>([]);
-    const [value, setValue] = useState<any>("3");
-    useEffect(() => {
-        setTimeout(() => {
-            setOptions(["1", "2", "3"]);
-        }, 1000);
-    }, []);
-    debugger;
+    const [visible, setVisible] = useState(false);
+    const [value, setValue] = useState<any>("0");
+
     return (
         <>
             <div
                 style={{ fontSize: 100, textAlign: "center", zIndex: 2 }}
-                onClick={() => {}}
+                onClick={() => {
+                    setVisible(true);
+                }}
             >
-                {value || "请选择"}
+                {"请选择"}
             </div>
-            {options.length > 0 && (
-                <Picker
-                    columns={[options]}
-                    defaultValue={[value]}
-                    value={value}
-                    visible={true}
-                    onConfirm={(v) => {
-                        setValue(v[0]);
-                    }}
-                />
-            )}
+            <Picker
+                columns={[["1", "2", "3"]]}
+                value={[value]}
+                visible={visible}
+                onConfirm={(v) => {
+                    setValue(v[0]);
+                    setVisible(false);
+                }}
+            />
+            <div
+                onClick={() => {
+                    setValue(undefined);
+                }}
+            >
+                reset
+            </div>
         </>
     );
 };
