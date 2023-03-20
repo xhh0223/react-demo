@@ -1,4 +1,5 @@
-import React, { useReducer, useState } from "react";
+import { Picker } from "antd-mobile";
+import React, { useEffect, useReducer, useState } from "react";
 
 export enum ActionType {
     ChangeName,
@@ -40,44 +41,33 @@ function reducer(
 }
 
 export const Demo4 = () => {
-    const [state, dispatch] = useReducer(reducer, { name: "xhh", age: "18" });
+    const [options, setOptions] = useState<any>([]);
+    const [value, setValue] = useState<any>("3");
+    useEffect(() => {
+        setTimeout(() => {
+            setOptions(["1", "2", "3"]);
+        }, 1000);
+    }, []);
+    debugger;
     return (
         <>
-            {state.name}-{state.age}
             <div
-                onClick={() => {
-                    dispatch({
-                        type: ActionType.ChangeName,
-                        payload: { name: "xhh0409" },
-                    });
-                }}
+                style={{ fontSize: 100, textAlign: "center", zIndex: 2 }}
+                onClick={() => {}}
             >
-                changeName
+                {value || "请选择"}
             </div>
-            <div
-                onClick={() => {
-                    dispatch({
-                        type: ActionType.ChangeAge,
-                        payload: { age: "20" },
-                    });
-                }}
-            >
-                changeAge
-            </div>
-            <div
-                onClick={() => {
-                    dispatch({
-                        type: ActionType.ChangeAge,
-                        payload: { age: "20" },
-                    });
-                    dispatch({
-                        type: ActionType.ChangeName,
-                        payload: { name: "xhh0409" },
-                    });
-                }}
-            >
-                changeName_changeAge
-            </div>
+            {options.length > 0 && (
+                <Picker
+                    columns={[options]}
+                    defaultValue={[value]}
+                    value={value}
+                    visible={true}
+                    onConfirm={(v) => {
+                        setValue(v[0]);
+                    }}
+                />
+            )}
         </>
     );
 };
