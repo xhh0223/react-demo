@@ -61,7 +61,7 @@ const Demo1 = () => {
             >
                 给个随机数
             </div>
-            <hr/>
+            <hr />
             <div
                 onClick={() => {
                     C1.show();
