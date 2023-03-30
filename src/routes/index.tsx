@@ -3,6 +3,7 @@ import Demo1 from "@/pages/Demo1";
 import Demo2 from "@/pages/Demo2";
 import Demo3 from "@/pages/Demo3";
 import Demo4 from "@/pages/Demo4";
+import Demo5 from "@/pages/Demo5";
 import Index from "@/pages/Index";
 import { useRoutes } from "react-router-dom";
 
@@ -31,5 +32,9 @@ export const Routes = () =>
         {
             path: Path.Demo4,
             element: <Demo4 />,
+        },
+        {
+            path: Path.Demo5,
+            element: <Demo5 />,
         },
     ]);
