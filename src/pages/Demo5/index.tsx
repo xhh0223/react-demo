@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 const useComponent = () => {
     interface Command {
@@ -6,7 +6,7 @@ const useComponent = () => {
     }
     const ComponentRef = useRef<Command>(undefined!);
     interface ComponentProps {}
-    const Component = useCallback<React.FC<ComponentProps>>(() => {
+    const Component = useCallback<React.FC<ComponentProps>>((props) => {
         const [state, setState] = useState({ visible: false });
         if (!ComponentRef.current) {
             ComponentRef.current = {
@@ -18,7 +18,7 @@ const useComponent = () => {
                 },
             };
         }
-        return <div>{JSON.stringify(state.visible)}</div>;
+        return <div {...props}>{JSON.stringify(state.visible)}</div>;
     }, []);
     return [Component, ComponentRef] as const;
 };

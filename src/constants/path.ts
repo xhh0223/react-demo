@@ -6,4 +6,6 @@ export abstract class Path {
     static Demo3 = "/demo3";
     static Demo4 = "/demo4";
     static Demo5 = "/demo5";
+    static Demo6 = "/demo6";
+    static Demo7 = "/demo7";
 }
