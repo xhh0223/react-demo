@@ -14,6 +14,7 @@
     "antd-mobile": "^5.27.0",
     "inversify": "^6.0.1",
     "ramda": "^0.29.0",
+    "rc-field-form": "^1.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",

@@ -1,32 +1,25 @@
-import { Button, Form } from "antd";
+import Form, { Field } from "rc-field-form";
 import React from "react";
+const Input = ({ value = "", ...props }) => <input value={value} {...props} />;
 const Demo6 = () => {
-    const [form] = Form.useForm();
     return (
         <div>
             <Form
-                layout="vertical"
-                form={form}
-                onFinish={(v) => {
-                    console.log(v);
+                onFinish={(values) => {
+                    console.log("Finish:", values);
                 }}
             >
-                <Form.Item
-                    name={"xhh"}
-                    label="测试"
-                    getValueProps={() => ({ style: { backGround: "red" } })}
+                <Field
+                    name="username"
+                    rules={[{ required: true, message: "122" }]}
                 >
-                    <div>
-                        <div>1</div>
-                        <div>2</div>
-                    </div>
-                </Form.Item>
-                <Form.Item shouldUpdate>
-                    {() => {
-                        return JSON.stringify(form.getFieldsValue());
-                    }}
-                </Form.Item>
-                <Button htmlType="submit">提交</Button>
+                    <Input placeholder="Username" />
+                </Field>
+                <br />
+                <Field name="password">
+                    <Input placeholder="Password" />
+                </Field>
+                <button>Submit</button>
             </Form>
         </div>
     );
