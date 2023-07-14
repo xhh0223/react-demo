@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-logic-component": "^1.0.0",
     "react-router-dom": "^6.6.1",
+    "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.16"
   },
   "devDependencies": {
