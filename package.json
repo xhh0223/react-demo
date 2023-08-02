@@ -9,14 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/shortid": "^0.0.29",
     "antd": "^5.1.1",
     "antd-mobile": "^5.27.0",
-    "inversify": "^6.0.1",
     "ramda": "^0.29.0",
-    "rc-field-form": "^1.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-logic-component": "^1.0.0",
     "react-router-dom": "^6.6.1",
     "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.16"
@@ -26,6 +24,7 @@
     "@types/ramda": "^0.28.23",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
+    "@types/shortid": "^0.0.29",
     "@vitejs/plugin-react": "^3.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.0.0"
