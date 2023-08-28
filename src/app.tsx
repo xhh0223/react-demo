@@ -4,9 +4,9 @@ import { Routes } from "./routes";
 import "./app.css";
 
 export function App() {
-    return (
-        <Router>
-            <Routes />
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes />
+    </Router>
+  );
 }
